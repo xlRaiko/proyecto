@@ -11,7 +11,7 @@ class PantallaRegistro extends StatefulWidget {
 
 class _EstadoPantallaRegistro extends State<PantallaRegistro> {
   final _formKey = GlobalKey<FormState>();
-  final _servicioBD = ServicioBD();
+  final _servicioBD = DatabaseService();
   
   final _controladorCorreo = TextEditingController();
   final _controladorcontrasena = TextEditingController();
@@ -37,11 +37,11 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
           contrasena: _controladorcontrasena.text,
           nombre: _controladorNombre.text.trim(),
           telefono: _controladorTelefono.text.trim(),
-          rol: ConfiguracionBD.rolUsuario,
+          rol: DatabaseConfig.rolUsuario,
           fechaCreacion: DateTime.now(),
         );
 
-        final exito = await _servicioBD.registrarUsuario(nuevoUsuario);
+        final exito = await _servicioBD.registerUser(nuevoUsuario);
         
         if (exito) {
           _mostrarExito();
@@ -68,7 +68,7 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
               Navigator.of(ctx).pop();
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => PantallaLogin()),
+                MaterialPageRoute(builder: (context) => LoginScreen()),
               );
             },
             child: Text('OK', style: TextStyle(color: Color(0xFF2E7D32))),
@@ -97,7 +97,7 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
   void _volverALogin() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => PantallaLogin()),
+      MaterialPageRoute(builder: (context) => LoginScreen()),
     );
   }
 

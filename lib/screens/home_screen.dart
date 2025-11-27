@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:proyecto/database/modelos/cita_modelo.dart';
 import 'package:proyecto/database/modelos/usuario_modelo.dart';
 import 'package:proyecto/database/servicio_db.dart';
-import '../widgets/tarjeta_cita.dart';
-import '../widgets/menu_lateral.dart';
+import 'package:proyecto/widgets/menu_lateral.dart';
+import 'package:proyecto/widgets/tarjeta_cita.dart';
 import 'panel_control/panel_control.dart';
 
 class PantallaPrincipal extends StatefulWidget {
@@ -16,7 +16,7 @@ class PantallaPrincipal extends StatefulWidget {
 }
 
 class _EstadoPantallaPrincipal extends State<PantallaPrincipal> {
-  final ServicioBD _servicioBD = ServicioBD();
+  final DatabaseService _servicioBD = DatabaseService();
   List<Cita> _citas = [];
   bool _cargando = true;
   int _indiceNavegacion = 0;
@@ -31,9 +31,9 @@ class _EstadoPantallaPrincipal extends State<PantallaPrincipal> {
     try {
       List<Cita> citas;
       if (widget.usuario.esTecnico) {
-        citas = await _servicioBD.obtenerTodasLasCitas();
+        citas = await _servicioBD.getAllAppointments();
       } else {
-        citas = await _servicioBD.obtenerCitasUsuario(widget.usuario.id);
+        citas = await _servicioBD.getUserAppointments(widget.usuario.id);
       }
       setState(() {
         _citas = citas;

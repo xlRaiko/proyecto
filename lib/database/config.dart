@@ -1,10 +1,10 @@
-class ConfiguracionBD {
+class DatabaseConfig {
   // Configuración de conexión
-  static const String servidor = 'localhost';
-  static const int puerto = 3306;
-  static const String nombreBD = 'sistema_citas_reparaciones';
-  static const String usuario = 'usuario_app';
-  static const String contrasena = 'contraseña_segura';
+  static const String host = 'localhost';
+  static const int port = 3306;
+  static const String dbName = 'sistema_citas_reparaciones';
+  static const String user = 'root'; // Cambiado a root para desarrollo
+  static const String password = ''; // Contraseña vacía para desarrollo
   
   // Nombres de tablas
   static const String tablaUsuarios = 'usuarios';
@@ -17,6 +17,6 @@ class ConfiguracionBD {
   static const int rolTecnico = 2;
   static const int rolAdministrador = 3;
   
-  static String get cadenaConexion =>
-      'mysql://$usuario:$contrasena@$servidor:$puerto/$nombreBD';
+  static String get connectionString =>
+      'mysql://$user:$password@$host:$port/$dbName';
 }

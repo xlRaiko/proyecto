@@ -4,13 +4,13 @@ import 'package:proyecto/screens/home_screen.dart';
 import 'package:proyecto/screens/register_screen.dart';
 import 'package:proyecto/widgets/formulario_login.dart';
 
-class PantallaLogin extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  _EstadoPantallaLogin createState() => _EstadoPantallaLogin();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _EstadoPantallaLogin extends State<PantallaLogin> {
-  final ServicioBD _servicioBD = ServicioBD();
+class _LoginScreenState extends State<LoginScreen> {
+  final DatabaseService _databaseService = DatabaseService();
   bool _conectando = false;
 
   @override
@@ -22,7 +22,7 @@ class _EstadoPantallaLogin extends State<PantallaLogin> {
   Future<void> _verificarConexionBD() async {
     setState(() => _conectando = true);
     try {
-      bool conectado = await _servicioBD.verificarConexion();
+      bool conectado = await _databaseService.testConnection();
       if (!conectado) {
         _mostrarError('Error de conexión', 'No se pudo conectar a la base de datos');
       }
@@ -35,13 +35,13 @@ class _EstadoPantallaLogin extends State<PantallaLogin> {
 
   Future<void> _manejarLogin(String correo, String contrasena) async {
     try {
-      final usuario = await _servicioBD.iniciarSesion(correo, contrasena);
+      final usuario = await _databaseService.login(correo, contrasena);
       
       if (usuario != null) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (contexto) => PantallaPrincipal(usuario: usuario),
+            builder: (context) => PantallaPrincipal(usuario: usuario),
           ),
         );
       } else {
@@ -55,7 +55,7 @@ class _EstadoPantallaLogin extends State<PantallaLogin> {
   void _irARegistro() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (contexto) => PantallaRegistro()),
+      MaterialPageRoute(builder: (context) => PantallaRegistro()),
     );
   }
 
@@ -76,7 +76,7 @@ class _EstadoPantallaLogin extends State<PantallaLogin> {
   }
 
   @override
-  Widget build(BuildContext contexto) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -133,12 +133,19 @@ class _EstadoPantallaLogin extends State<PantallaLogin> {
                     ] else ...[
                       Text(
                         'Iniciar Sesión',
-                        style: Theme.of(contexto).textTheme.headlineSmall,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF2E7D32),
+                        ),
                       ),
                       SizedBox(height: 8),
                       Text(
                         'Accede a tu cuenta para gestionar tus citas',
-                        style: Theme.of(contexto).textTheme.bodyLarge,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey.shade600,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 32),

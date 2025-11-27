@@ -43,15 +43,15 @@ class Usuario {
     };
   }
 
-  bool get esTecnico => rol >= ConfiguracionBD.rolTecnico;
-  bool get esAdministrador => rol == ConfiguracionBD.rolAdministrador;
-  bool get esUsuarioNormal => rol == ConfiguracionBD.rolUsuario;
+  bool get esTecnico => rol >= DatabaseConfig.rolTecnico;
+  bool get esAdministrador => rol == DatabaseConfig.rolAdministrador;
+  bool get esUsuarioNormal => rol == DatabaseConfig.rolUsuario;
 
   String get nombreRol {
     switch (rol) {
-      case ConfiguracionBD.rolAdministrador:
+      case DatabaseConfig.rolAdministrador:
         return 'Administrador';
-      case ConfiguracionBD.rolTecnico:
+      case DatabaseConfig.rolTecnico:
         return 'Técnico';
       default:
         return 'Usuario';

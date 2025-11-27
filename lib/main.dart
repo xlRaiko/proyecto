@@ -12,7 +12,7 @@ class MiAplicacion extends StatelessWidget {
     return MaterialApp(
       title: 'TechRepair - Sistema de Citas',
       theme: TemaApp.temaDatos,
-      home: PantallaLogin(),
+      home: LoginScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
