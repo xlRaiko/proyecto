@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/database/modelos/usuario_modelo.dart';
+import 'package:proyecto/perfiles/configuracion.dart';
 
 class MenuLateral extends StatelessWidget {
   final Usuario usuario;
@@ -93,11 +94,16 @@ class MenuLateral extends StatelessWidget {
             ),
           ],
           Divider(),
+          // Configuración - CORREGIDO
           ListTile(
             leading: Icon(Icons.settings, color: Color(0xFF2E7D32)),
             title: Text('Configuración'),
             onTap: () {
-              Navigator.pop(contexto);
+              Navigator.pop(contexto); // Cerrar el drawer
+              Navigator.push(
+                contexto, // Usar 'contexto' en lugar de 'context'
+                MaterialPageRoute(builder: (context) => PaginaConfiguracion()),
+              );
             },
           ),
           ListTile(
