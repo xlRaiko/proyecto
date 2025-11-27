@@ -134,7 +134,7 @@ class _EstadoFormularioLogin extends State<FormularioLogin> {
             child: Column(
               children: [
                 Text(
-                  'Credenciales de prueba:',
+                  'Aviso',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.grey.shade700,
@@ -142,7 +142,7 @@ class _EstadoFormularioLogin extends State<FormularioLogin> {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Usuario: cliente@ejemplo.com\ncontrasena: 123456',
+                  'Necesitarás registrarte para poder acceder a tus citas',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey.shade600,
@@ -151,7 +151,7 @@ class _EstadoFormularioLogin extends State<FormularioLogin> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  'Técnico: tecnico@ejemplo.com\nAdmin: admin@ejemplo.com',
+                  'Tus datos son privados y están cifrados, por lo que son seguros',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey.shade600,
