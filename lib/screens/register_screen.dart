@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto/database/config.dart';
-import 'package:proyecto/database/modelos/usuario_modelo.dart';
+import 'package:proyecto/database/auth.dart';
 import 'package:proyecto/database/servicio_db.dart';
 import 'package:proyecto/screens/login_screen.dart';
 
@@ -12,10 +11,11 @@ class PantallaRegistro extends StatefulWidget {
 class _EstadoPantallaRegistro extends State<PantallaRegistro> {
   final _formKey = GlobalKey<FormState>();
   final _servicioBD = DatabaseService();
+  final _authService = AuthService(); // Servicio de autenticación
   
   final _controladorCorreo = TextEditingController();
-  final _controladorcontrasena = TextEditingController();
-  final _controladorConfirmarcontrasena = TextEditingController();
+  final _controladorContrasena = TextEditingController();
+  final _controladorConfirmarContrasena = TextEditingController();
   final _controladorNombre = TextEditingController();
   final _controladorTelefono = TextEditingController();
   
@@ -23,30 +23,26 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
 
   void _registrarUsuario() async {
     if (_formKey.currentState!.validate()) {
-      if (_controladorcontrasena.text != _controladorConfirmarcontrasena.text) {
-        _mostrarError('Error', 'Las contrasenas no coinciden');
+      if (_controladorContrasena.text != _controladorConfirmarContrasena.text) {
+        _mostrarError('Error', 'Las contraseñas no coinciden');
         return;
       }
 
       setState(() => _registrando = true);
 
       try {
-        final nuevoUsuario = Usuario(
-          id: 0,
-          correo: _controladorCorreo.text.trim(),
-          contrasena: _controladorcontrasena.text,
-          nombre: _controladorNombre.text.trim(),
-          telefono: _controladorTelefono.text.trim(),
-          rol: DatabaseConfig.rolUsuario,
-          fechaCreacion: DateTime.now(),
+        // Registrar en Firebase Authentication y base de datos local
+        final user = await _authService.registrarConEmailYContrasena(
+          _controladorCorreo.text.trim(),
+          _controladorContrasena.text,
+          _controladorNombre.text.trim(),
+          _controladorTelefono.text.trim(),
         );
-
-        final exito = await _servicioBD.registerUser(nuevoUsuario);
         
-        if (exito) {
+        if (user != null) {
           _mostrarExito();
         } else {
-          _mostrarError('Error', 'No se pudo registrar el usuario');
+          _mostrarError('Error', 'No se pudo registrar el usuario. El correo puede estar en uso.');
         }
       } catch (e) {
         _mostrarError('Error', e.toString());
@@ -191,7 +187,7 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
                     if (valor == null || valor.isEmpty) {
                       return 'Por favor ingresa tu correo';
                     }
-                    if (!valor.contains('@')) {
+                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(valor)) {
                       return 'Ingresa un correo válido';
                     }
                     return null;
@@ -199,39 +195,42 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
                 ),
                 SizedBox(height: 16),
 
-                // Campo contrasena
+                // Campo Contraseña
                 TextFormField(
-                  controller: _controladorcontrasena,
+                  controller: _controladorContrasena,
                   decoration: InputDecoration(
-                    labelText: 'contrasena',
+                    labelText: 'Contraseña',
                     prefixIcon: Icon(Icons.lock, color: Color(0xFF2E7D32)),
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
                   validator: (valor) {
                     if (valor == null || valor.isEmpty) {
-                      return 'Por favor ingresa una contrasena';
+                      return 'Por favor ingresa una contraseña';
                     }
                     if (valor.length < 6) {
-                      return 'La contrasena debe tener al menos 6 caracteres';
+                      return 'La contraseña debe tener al menos 6 caracteres';
                     }
                     return null;
                   },
                 ),
                 SizedBox(height: 16),
 
-                // Campo Confirmar contrasena
+                // Campo Confirmar Contraseña
                 TextFormField(
-                  controller: _controladorConfirmarcontrasena,
+                  controller: _controladorConfirmarContrasena,
                   decoration: InputDecoration(
-                    labelText: 'Confirmar contrasena',
+                    labelText: 'Confirmar Contraseña',
                     prefixIcon: Icon(Icons.lock_outline, color: Color(0xFF2E7D32)),
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
                   validator: (valor) {
                     if (valor == null || valor.isEmpty) {
-                      return 'Por favor confirma tu contrasena';
+                      return 'Por favor confirma tu contraseña';
+                    }
+                    if (valor != _controladorContrasena.text) {
+                      return 'Las contraseñas no coinciden';
                     }
                     return null;
                   },
@@ -248,7 +247,12 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF2E7D32),
+                          foregroundColor: Colors.white,
                           minimumSize: Size(double.infinity, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
 
@@ -271,8 +275,8 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
   @override
   void dispose() {
     _controladorCorreo.dispose();
-    _controladorcontrasena.dispose();
-    _controladorConfirmarcontrasena.dispose();
+    _controladorContrasena.dispose();
+    _controladorConfirmarContrasena.dispose();
     _controladorNombre.dispose();
     _controladorTelefono.dispose();
     super.dispose();
