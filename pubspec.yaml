@@ -11,8 +11,10 @@ dependencies:
     sdk: flutter
   mysql1: ^0.20.0
   image_picker: ^1.0.4
-  firebase_core: ^2.15.0
-  firebase_auth: ^4.2.0
+  firebase_core: ^2.24.0
+  firebase_auth: ^4.17.3
+  cloud_firestore: ^4.9.1
+  firebase_storage: ^11.5.3
   sqflite: ^2.3.0
   path: ^1.8.3
 
