@@ -5,7 +5,7 @@ import 'package:proyecto/perfiles/configuracion.dart';
 class MenuLateral extends StatelessWidget {
   final Usuario usuario;
 
-  const MenuLateral({Key? key, required this.usuario}) : super(key: key);
+  const MenuLateral({super.key, required this.usuario});
 
   @override
   Widget build(BuildContext contexto) {
@@ -22,6 +22,7 @@ class MenuLateral extends StatelessWidget {
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.white,
+                  radius: 30,
                   child: Text(
                     usuario.nombre[0].toUpperCase(),
                     style: TextStyle(
@@ -30,7 +31,6 @@ class MenuLateral extends StatelessWidget {
                       color: Color(0xFF2E7D32),
                     ),
                   ),
-                  radius: 30,
                 ),
                 SizedBox(height: 8),
                 Text(

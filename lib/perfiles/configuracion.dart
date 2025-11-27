@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PaginaConfiguracion extends StatefulWidget {
-  const PaginaConfiguracion({Key? key}) : super(key: key);
+  const PaginaConfiguracion({super.key});
 
   @override
   State<PaginaConfiguracion> createState() => _PaginaConfiguracionState();

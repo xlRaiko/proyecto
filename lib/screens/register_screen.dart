@@ -4,6 +4,8 @@ import 'package:proyecto/database/servicio_db.dart';
 import 'package:proyecto/screens/login_screen.dart';
 
 class PantallaRegistro extends StatefulWidget {
+  const PantallaRegistro({super.key});
+
   @override
   _EstadoPantallaRegistro createState() => _EstadoPantallaRegistro();
 }
@@ -242,10 +244,6 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
                     ? CircularProgressIndicator(color: Color(0xFF2E7D32))
                     : ElevatedButton(
                         onPressed: _registrarUsuario,
-                        child: Text(
-                          'Registrarse',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF2E7D32),
                           foregroundColor: Colors.white,
@@ -253,6 +251,10 @@ class _EstadoPantallaRegistro extends State<PantallaRegistro> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
+                        ),
+                        child: Text(
+                          'Registrarse',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
 

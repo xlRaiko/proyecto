@@ -7,11 +7,11 @@ class TarjetaCita extends StatelessWidget {
   final Function onActualizada;
 
   const TarjetaCita({
-    Key? key,
+    super.key,
     required this.cita,
     required this.puedeEditar,
     required this.onActualizada,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext contexto) {

@@ -4,7 +4,7 @@ import 'package:proyecto/database/modelos/usuario_modelo.dart';
 class PanelControl extends StatelessWidget {
   final Usuario usuario;
 
-  const PanelControl({Key? key, required this.usuario}) : super(key: key);
+  const PanelControl({super.key, required this.usuario});
 
   @override
   Widget build(BuildContext contexto) {
@@ -81,12 +81,12 @@ class _TarjetaOpcion extends StatelessWidget {
   final VoidCallback onTap;
 
   const _TarjetaOpcion({
-    Key? key,
+    super.key,
     required this.icono,
     required this.titulo,
     required this.color,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext contexto) {

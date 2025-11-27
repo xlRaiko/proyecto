@@ -5,6 +5,8 @@ import 'package:proyecto/screens/register_screen.dart';
 import 'package:proyecto/widgets/formulario_login.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }

@@ -5,10 +5,10 @@ class FormularioLogin extends StatefulWidget {
   final VoidCallback onRegistrar; // Cambiado a VoidCallback
 
   const FormularioLogin({
-    Key? key,
+    super.key,
     required this.onLogin,
     required this.onRegistrar,
-  }) : super(key: key);
+  });
 
   @override
   _EstadoFormularioLogin createState() => _EstadoFormularioLogin();
@@ -94,12 +94,12 @@ class _EstadoFormularioLogin extends State<FormularioLogin> {
               ? CircularProgressIndicator(color: Color(0xFF2E7D32))
               : ElevatedButton(
                   onPressed: _enviar,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 50),
+                  ),
                   child: Text(
                     'Iniciar Sesión',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 50),
                   ),
                 ),
           SizedBox(height: 20),

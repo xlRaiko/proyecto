@@ -9,7 +9,7 @@ import 'panel_control/panel_control.dart';
 class PantallaPrincipal extends StatefulWidget {
   final Usuario usuario;
 
-  const PantallaPrincipal({Key? key, required this.usuario}) : super(key: key);
+  const PantallaPrincipal({super.key, required this.usuario});
 
   @override
   _EstadoPantallaPrincipal createState() => _EstadoPantallaPrincipal();
@@ -155,8 +155,8 @@ class _EstadoPantallaPrincipal extends State<PantallaPrincipal> {
                 // TODO: Navegar a pantalla de nueva cita
               },
               backgroundColor: Color(0xFF2E7D32),
-              child: Icon(Icons.add, color: Colors.white),
               tooltip: 'Nueva Cita',
+              child: Icon(Icons.add, color: Colors.white),
             )
           : null,
       bottomNavigationBar: BottomNavigationBar(

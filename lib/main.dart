@@ -7,6 +7,8 @@ void main() {
 }
 
 class MiAplicacion extends StatelessWidget {
+  const MiAplicacion({super.key});
+
   @override
   Widget build(BuildContext contexto) {
     return MaterialApp(

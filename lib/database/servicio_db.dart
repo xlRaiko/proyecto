@@ -109,7 +109,7 @@ class DatabaseService {
       _usuarios.add(usuario);
       return true;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
