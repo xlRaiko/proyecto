@@ -66,5 +66,25 @@ proyecto/
 ├── analysis_options.yaml   # Reglas de análisis de Dart
 └── README.md               # Este archivo
 
-# Linux
-flutter build linux --release
+ESTRUCTURA DEL LIB
+-----------------------
+
+lib/
+├── api/
+│   └── api_config.dart
+├── providers/
+│   ├── auth_provider.dart
+│   └── reparacion_provider.dart
+├── screens/
+│   ├── about_screen.dart
+│   ├── appointments_screen.dart
+│   ├── create_kproducto_screen.dart
+│   ├── home_screen.dart
+│   ├── login_screen.dart
+│   ├── menu_lateral.dart
+│   ├── profile_screen.dart
+│   └── register_screen.dart
+├── utils/
+│   └── image_utils.dart
+└── main.dart
+
